@@ -4,8 +4,8 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-from .db import db
-from .keyboard import *
+from src.db import db
+from src.keyboard import *
 
 subscription_router = Router()
 
@@ -95,7 +95,7 @@ async def subscription_salary(message: Message, state: FSMContext):
     salary_text = message.text.lower().strip()
     salary_from = None
 
-    if salary_text not in ['yo\'q', 'yoq', 'yo\'q', 'kerak emas', 'muhim emas']:
+    if salary_text not in ['yoq', 'kerak emas', 'muhim emas']:
         try:
             salary_from = int(''.join(filter(str.isdigit, salary_text)))
         except ValueError:

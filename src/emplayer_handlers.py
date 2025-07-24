@@ -2,9 +2,9 @@ from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
-from .db import db
-from .keyboard import *
-from .config import PROMOTION_PRICES
+from src.db import db
+from src.keyboard import *
+from src.config import PROMOTION_PRICES
 
 employer_router = Router()
 
@@ -67,21 +67,21 @@ async def promote_vacancy(callback: CallbackQuery):
     promotion_names = {
         'top': 'Yuqoriga chiqarish',
         'urgent': 'Tezkor e\'lon',
-        'highlight': 'Ajratib ko\'rsatish'
+        'highlight': 'Ajratib korsatish'
     }
 
     promotion_descriptions = {
         'top': 'Vakansiyangiz qidiruv natijalarida birinchi o\'rinlarda ko\'rsatiladi',
         'urgent': 'Vakansiyangiz "TEZKOR" belgisi bilan ajralib turadi',
-        'highlight': 'Vakansiyangiz rangli fon bilan ajratib ko\'rsatiladi'
+        'highlight': 'Vakansiyangiz rangli fon bilan ajratib korsatiladi'
     }
 
     text = (
         f"⭐ <b>{promotion_names[promotion_type]}</b>\n\n"
         f"📝 {promotion_descriptions[promotion_type]}\n\n"
-        f"💰 Narx: {price:,} so'm\n"
+        f"💰 Narx: {price:,} som\n"
         f"⏰ Muddat: 7 kun\n\n"
-        f"❓ To'lovni amalga oshirasizmi?"
+        f"❓ Tolovni amalga oshirasizmi?"
     )
 
     await callback.message.edit_text(
@@ -115,9 +115,9 @@ async def confirm_payment(callback: CallbackQuery):
         )
 
     await callback.message.edit_text(
-        "✅ <b>To'lov muvaffaqiyatli amalga oshirildi!</b>\n\n"
+        "✅ <b>Tolov muvaffaqiyatli amalga oshirildi!</b>\n\n"
         "⭐ Vakansiyangiz endi reklama orqali "
-        "ko'proq odamlarga ko'rsatiladi.\n\n"
+        "koproq odamlarga korsatiladi.\n\n"
         "📊 Natijalarni kuzatib borishingiz mumkin."
     )
 
@@ -128,7 +128,7 @@ async def cancel_payment(callback: CallbackQuery):
     vacancy_id = int(callback.data.split(":")[-1])
 
     await callback.message.edit_text(
-        "❌ To'lov bekor qilindi.",
+        "❌ Tolov bekor qilindi.",
         reply_markup=promotion_keyboard(vacancy_id)
     )
 
@@ -176,7 +176,7 @@ async def employer_statistics(message: Message):
         f"✅ Faol vakansiyalar: {active_vacancies}\n"
         f"⏳ Moderatsiyada: {pending_vacancies}\n"
         f"⭐ Reklama qilingan: {promoted_vacancies}\n\n"
-        f"💰 Jami sarflangan: {total_spent:,} so'm\n"
+        f"💰 Jami sarflangan: {total_spent:,} som\n"
     )
 
     await message.answer(text, reply_markup=employer_menu_keyboard())
@@ -188,16 +188,16 @@ async def edit_vacancy_menu(callback: CallbackQuery):
     vacancy_id = int(callback.data.split(":")[1])
 
     kb = InlineKeyboardBuilder()
-    kb.add(InlineKeyboardButton(text="📝 Tavsifni o'zgartirish", callback_data=f"edit_desc:{vacancy_id}"))
-    kb.add(InlineKeyboardButton(text="💰 Maoshni o'zgartirish", callback_data=f"edit_salary:{vacancy_id}"))
-    kb.add(InlineKeyboardButton(text="📞 Telefoni o'zgartirish", callback_data=f"edit_phone:{vacancy_id}"))
-    kb.add(InlineKeyboardButton(text="❌ Vakansiyani o'chirish", callback_data=f"delete_vacancy:{vacancy_id}"))
+    kb.add(InlineKeyboardButton(text="📝 Tavsifni ozgartirish", callback_data=f"edit_desc:{vacancy_id}"))
+    kb.add(InlineKeyboardButton(text="💰 Maoshni ozgartirish", callback_data=f"edit_salary:{vacancy_id}"))
+    kb.add(InlineKeyboardButton(text="📞 Telefoni ozgartirish", callback_data=f"edit_phone:{vacancy_id}"))
+    kb.add(InlineKeyboardButton(text="❌ Vakansiyani ochirish", callback_data=f"delete_vacancy:{vacancy_id}"))
     kb.add(InlineKeyboardButton(text="◀️ Orqaga", callback_data=f"view_vacancy:{vacancy_id}"))
     kb.adjust(1)
 
     await callback.message.edit_text(
         "⚙️ <b>Vakansiyani tahrirlash</b>\n\n"
-        "Qaysi ma'lumotni o'zgartirmoqchisiz?",
+        "Qaysi malumotni ozgartirmoqchisiz?",
         reply_markup=kb.as_markup()
     )
 
@@ -208,7 +208,7 @@ async def delete_vacancy_confirm(callback: CallbackQuery):
     vacancy_id = int(callback.data.split(":")[1])
 
     await callback.message.edit_text(
-        "❓ <b>Vakansiyani o'chirishni tasdiqlaysizmi?</b>\n\n"
+        "❓ <b>Vakansiyani ochirishni tasdiqlaysizmi?</b>\n\n"
         "⚠️ Bu amalni qaytarib bo'lmaydi!",
         reply_markup=confirm_keyboard("delete_vacancy", vacancy_id)
     )
@@ -226,13 +226,13 @@ async def delete_vacancy_confirmed(callback: CallbackQuery):
         )
 
     await callback.message.edit_text(
-        "✅ Vakansiya muvaffaqiyatli o'chirildi!"
+        "✅ Vakansiya muvaffaqiyatli ochirildi!"
     )
 
 
 @employer_router.callback_query(F.data.startswith("cancel:delete_vacancy:"))
 async def cancel_delete_vacancy(callback: CallbackQuery):
-    """Vakansiyani o'chirishni bekor qilish"""
+    ""        "Vakansiyani ochirishni bekor qilish"""
     vacancy_id = int(callback.data.split(":")[-1])
 
     await edit_vacancy_menu(callback)

@@ -135,7 +135,7 @@ def salary_filter_keyboard():
         ("💸 1 mln dan kam", "salary:0:1000000"),
         ("💰 1-3 mln", "salary:1000000:3000000"),
         ("💎 3-5 mln", "salary:3000000:5000000"),
-        ("👑 5 mln dan ko'p", "salary:5000000:100000000"),
+        ("👑 5 mln dan kop", "salary:5000000:100000000"),
     ]
 
     for text, callback in salaries:
@@ -151,7 +151,7 @@ def work_schedule_keyboard():
     kb = InlineKeyboardBuilder()
 
     schedules = [
-        ("🕘 To'liq kun", "schedule:toliq_kun"),
+        ("🕘 Toliq kun", "schedule:toliq_kun"),
         ("⏰ Qisman kun", "schedule:qisman_kun"),
         ("🌙 Smenali", "schedule:smenali"),
         ("🏠 Masofaviy", "schedule:masofaviy")

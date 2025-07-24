@@ -6,9 +6,9 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.exceptions import TelegramBadRequest
 import re
 
-from .db import db
-from .keyboard import *
-from .config import ADMIN_IDS, VACANCIES_PER_PAGE, PROMOTION_PRICES
+from src.db import db
+from src.keyboard import *
+from src.config import ADMIN_IDS, VACANCIES_PER_PAGE, PROMOTION_PRICES
 
 router = Router()
 
@@ -59,7 +59,7 @@ def format_vacancy_text(vacancy: dict) -> str:
         text += f"🎯 <b>Tajriba:</b> {vacancy['experience_required']}\n"
 
     text += f"📍 <b>Manzil:</b> {vacancy['address']}\n"
-    text += f"👤 <b>Ish beruvchi:</b> {vacancy.get('employer_name', 'Noma\'lum')}\n"
+    text += f"👤 <b>Ish beruvchi:</b> {vacancy.get('employer_name', 'Nomalum')}\n"
 
     if vacancy.get('contact_name'):
         text += f"📞 <b>Bog'lanish:</b> {vacancy['contact_name']}\n"
