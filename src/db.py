@@ -2,7 +2,7 @@ import asyncpg
 import asyncio
 from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple
-from config import DATABASE_URL
+from .config import DATABASE_URL
 
 
 class Database:

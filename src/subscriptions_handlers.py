@@ -4,8 +4,8 @@ from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
-from db import db
-from keyboard import *
+from .db import db
+from .keyboard import *
 
 subscription_router = Router()
 

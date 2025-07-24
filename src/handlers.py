@@ -6,9 +6,9 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.exceptions import TelegramBadRequest
 import re
 
-from db import db
-from keyboard import *
-from config import ADMIN_IDS, VACANCIES_PER_PAGE, PROMOTION_PRICES
+from .db import db
+from .keyboard import *
+from .config import ADMIN_IDS, VACANCIES_PER_PAGE, PROMOTION_PRICES
 
 router = Router()
 
